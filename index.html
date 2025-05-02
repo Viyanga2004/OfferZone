@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OfferZone.kozow.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #f72585;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-light: rgba(255, 255, 255, 0.9);
+            --text-lighter: rgba(255, 255, 255, 0.7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #16213e, #1a1a2e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        header {
+            padding: 4rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(67, 97, 238, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #4cc9f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            color: var(--text-lighter);
+            font-weight: 300;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem;
+            padding: 0 0 5rem;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .offer-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            animation: fadeIn 0.6s forwards;
+            animation-delay: calc(var(--order) * 0.1s);
+        }
+        
+        .offer-card:nth-child(1) { --order: 1; }
+        .offer-card:nth-child(2) { --order: 2; }
+        .offer-card:nth-child(3) { --order: 3; }
+        .offer-card:nth-child(4) { --order: 4; }
+        .offer-card:nth-child(5) { --order: 5; }
+        
+        .offer-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .offer-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .offer-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(22, 33, 62, 0.9), transparent);
+        }
+        
+        .offer-content {
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .offer-title {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .offer-description {
+            color: var(--text-lighter);
+            margin-bottom: 1.8rem;
+            font-weight: 300;
+            font-size: 0.95rem;
+        }
+        
+        .offer-value {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(76, 201, 240, 0.15);
+            color: var(--success);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(76, 201, 240, 0.3);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--success));
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.6);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-dark), var(--success));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+        
+        .category-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .grocery-tag {
+            background: rgba(100, 223, 223, 0.15);
+            color: #64dfdf;
+            border: 1px solid rgba(100, 223, 223, 0.3);
+        }
+        
+        .jobs-tag {
+            background: rgba(233, 196, 106, 0.15);
+            color: #e9c46a;
+            border: 1px solid rgba(233, 196, 106, 0.3);
+        }
+        
+        .rewards-tag {
+            background: rgba(247, 37, 133, 0.15);
+            color: var(--secondary);
+            border: 1px solid rgba(247, 37, 133, 0.3);
+        }
+        
+        .tag-icon {
+            margin-right: 0.5rem;
+            font-size: 0.7rem;
+        }
+        
+        footer {
+            background: rgba(10, 15, 35, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .disclaimer {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            color: var(--text-lighter);
+        }
+        
+        .copyright {
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: 50px;
+            right: -50px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            right: 20%;
+            animation-delay: 4s;
+            animation-duration: 10s;
+        }
+        
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .offers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 3rem 0 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <h1>Offer Zone</h1>
+            <p class="subtitle">Curated selection of premium offers designed to elevate your lifestyle and financial potential</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="offers-grid">
+            <!-- Grocery Offer -->
+            <div class="offer-card">
+                <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="offer-content">
+                    <span class="category-tag grocery-tag">
+                        <i class="fas fa-shopping-basket tag-icon"></i> Grocery Savings
+                    </span>
+                    <h3 class="offer-title">Aldi Premium Grocery Package</h3>
+                    <span class="offer-value">
+                        <i class="fas fa-tag" style="margin-right: 8px;"></i> $100 Value
+                    </span>
+                    <p class="offer-description">Access premium grocery selections at exceptional value with this exclusive Aldi package designed for discerning shoppers.</p>
+                    <a href="https://www.opph3hftrk.com/G3M4RR5/2S3BX2C/?sub2=P1" class="btn btn-primary">
+                        <i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Access This Offer
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Work from Home -->
+            <div class="offer-card">
+                <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="offer-content">
+                    <span class="category-tag jobs-tag">
+                        <i class="fas fa-briefcase tag-icon"></i> Career Opportunity
+                    </span>
+                    <h3 class="offer-title">Professional Remote Work Solutions</h3>
+                    <span class="offer-value">
+                        <i class="fas fa-chart-line" style="margin-right: 8px;"></i> Flexible Income
+                    </span>
+                    <p class="offer-description">Discover vetted remote work opportunities that fit your skills and schedule requirements with premium compensation.</p>
+                    <a href="https://www.opph3hftrk.com/G3M4RR5/2CTPL11/?sub2=JBU1" class="btn btn-primary">
+                        <i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Explore Opportunities
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Amazon Jobs -->
+            <div class="offer-card">
+                <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="offer-content">
+                    <span class="category-tag jobs-tag">
+                        <i class="fas fa-user-tie tag-icon"></i> Career Advancement
+                    </span>
+                    <h3 class="offer-title">Amazon Career Pathways</h3>
+                    <span class="offer-value">
+                        <i class="fas fa-star" style="margin-right: 8px;"></i> Growth Potential
+                    </span>
+                    <p class="offer-description">Elevate your career with premium positions at one of the world's most innovative companies with competitive benefits.</p>
+                    <a href="https://www.opph3hftrk.com/G3M4RR5/29W68JP/?sub2=AMU" class="btn btn-primary">
+                        <i class="fas fa-arrow-right" style="margin-right: 10px;"></i> View Positions
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Cleaning Jobs -->
+            <div class="offer-card">
+                <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="offer-content">
+                    <span class="category-tag jobs-tag">
+                        <i class="fas fa-broom tag-icon"></i> Service Industry
+                    </span>
+                    <h3 class="offer-title">Premium Cleaning Services Positions</h3>
+                    <span class="offer-value">
+                        <i class="fas fa-clock" style="margin-right: 8px;"></i> Immediate Openings
+                    </span>
+                    <p class="offer-description">High-value cleaning service opportunities with competitive compensation packages and flexible scheduling.</p>
+                    <a href="https://www.opph3hftrk.com/G3M4RR5/29W68JP/?sub2=CJ" class="btn btn-primary">
+                        <i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Learn More
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Gift Card -->
+            <div class="offer-card">
+                <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="offer-content">
+                    <span class="category-tag rewards-tag">
+                        <i class="fas fa-gift tag-icon"></i> Rewards Program
+                    </span>
+                    <h3 class="offer-title">Aldi Premium Gift Card</h3>
+                    <span class="offer-value">
+                        <i class="fas fa-dollar-sign" style="margin-right: 8px;"></i> $200 Value
+                    </span>
+                    <p class="offer-description">Exclusive access to premium gift card options for your shopping needs with enhanced value benefits.</p>
+                    <a href="https://www.opph3hftrk.com/G3M4RR5/22Q72K9/?sub2=AGNL1" class="btn btn-primary">
+                        <i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Get Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="disclaimer">This is an affiliate link website. We connect you with premium offers and opportunities from trusted partners.</p>
+                <p class="copyright">&copy; 2025 Offer Zone Network. All offers are subject to provider terms and conditions.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
